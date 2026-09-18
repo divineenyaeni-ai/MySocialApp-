@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySocialApp</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    color: #222;
+}
+
+/* AUTH */
+
+.auth {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+.logo {
+    text-align: center;
+    color: #1877f2;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #1877f2;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #42b72a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.link-btn {
+    display: block;
+    margin: 15px auto 0;
+    border: none;
+    background: none;
+    color: #1877f2;
+    font-size: 15px;
+}
+
+/* APP */
+
+.app {
+    display: none;
+    min-height: 100vh;
+}
+
+.header {
+    background: #1877f2;
+    color: white;
+    padding: 18px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.page {
+    display: none;
+    padding-bottom: 75px;
+}
+
+.page.active {
+    display: block;
+}
+
+/* HOME */
+
+.container {
+    padding: 15px;
+}
+
+.welcome {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.post {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.post-header {
+    padding: 15px;
+    font-weight: bold;
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.actions {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.actions button {
+    flex: 1;
+    border: none;
+    background: white;
+    padding: 14px 5px;
+}
+
+/* CONTACT LIST */
+
+.contact {
+    background: white;
+    padding: 17px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.contact:active {
+    background: #eee;
+}
+
+.contact-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #1877f2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    margin-right: 14px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info b {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-info small {
+    color: #777;
+}
+
+/* CHAT */
+
+.chat-page {
+    height: 100vh;
+    background: #e5ddd5;
+    display: none;
+    flex-direction: column;
+}
+
+.chat-header {
+    background: #1877f2;
+    color: white;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+    margin-right: 12px;
+}
+
+.chat-user {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.message {
+    max-width: 75%;
+    padding: 10px 13px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    clear: both;
+    word-wrap: break-word;
+}
+
+.received {
+    background: white;
+    float: left;
+}
+
+.sent {
+    background: #d9fdd3;
+    float: right;
+}
+
+.chat-input-area {
+    display: flex;
+    background: white;
+    padding: 8px;
+    gap: 8px;
+}
+
+.chat-input {
+    flex: 1;
+    margin: 0;
+    border-radius: 22px;
+}
+
+.send-btn {
+    width: 55px;
+    border: none;
+    border-radius: 50%;
+    background: #1877f2;
+    color: white;
+    font-size: 18px;
+}
+
+/* PROFILE */
+
+.profile-box {
+    background: white;
+    margin: 15px;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.avatar {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #1877f2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+}
+
+.logout {
+    margin-top: 20px;
+    background: #e53935;
+}
+
+/* BOTTOM NAV */
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    background: white;
+    display: flex;
+    border-top: 1px solid #ddd;
+    z-index: 20;
+}
+
+.bottom button {
+    flex: 1;
+    border: none;
+    background: white;
+    font-size: 13px;
+}
+
+.bottom button:active {
+    background: #eee;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginScreen" class="auth">
+
+    <div class="auth-box">
+
+        <div class="logo">MySocialApp</div>
+
+        <p class="subtitle">
+            Connect with friends and family
+        </p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email address"
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+        >
+
+        <button class="main-btn" onclick="login()">
+            Log In
+        </button>
+
+        <button class="signup-btn" onclick="showSignup()">
+            Create New Account
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SIGN UP -->
+
+<div id="signupScreen" class="auth" style="display:none;">
+
+    <div class="auth-box">
+
+        <div class="logo">Create Account</div>
+
+        <p class="subtitle">
+            Join MySocialApp
+        </p>
+
+        <input
+            type="text"
+            id="signupName"
+            placeholder="Full name"
+        >
+
+        <input
+            type="email"
+            id="signupEmail"
+            placeholder="Email address"
+        >
+
+        <input
+            type="password"
+            id="signupPassword"
+            placeholder="Password"
+        >
+
+        <button class="signup-btn" onclick="createAccount()">
+            Sign Up
+        </button>
+
+        <button class="link-btn" onclick="showLogin()">
+            Already have an account? Log In
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN APP -->
+
+<div id="app" class="app">
+
+    <!-- HOME -->
+
+    <div id="homePage" class="page active">
+
+        <div class="header">
+            MySocialApp
+        </div>
+
+        <div class="container">
+
+            <div class="welcome">
+                <h2 id="welcomeText">Welcome 👋</h2>
+                <br>
+                <p>What's happening today?</p>
+            </div>
+
+            <div class="post">
+
+                <div class="post-header">
+                    👤 Divine
+                </div>
+
+                <div class="post-content">
+                    Hello everyone! Welcome to MySocialApp 🎉
+                </div>
+
+                <div class="actions">
+
+                    <button onclick="likePost(this)">
+                        ❤️ Like
+                    </button>
+
+                    <button onclick="commentPost()">
+                        💬 Comment
+                    </button>
+
+                    <button onclick="sharePost()">
+                        ↗️ Share
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    <div id="messagesPage" class="page">
+
+        <div class="header">
+            Messages
+        </div>
+
+        <div id="contacts">
+
+            <div class="contact" onclick="openChat('John')">
+
+                <div class="contact-avatar">
+                    👤
+                </div>
+
+                <div class="contact-info">
+                    <b>John</b>
+                    <small>Hello! How are you?</small>
+                </div>
+
+            </div>
+
+
+            <div class="contact" onclick="openChat('Michael')">
+
+                <div class="contact-avatar">
+                    👤
+                </div>
+
+                <div class="contact-info">
+                    <b>Michael</b>
+                    <small>Welcome to MySocialApp!</small>
+                </div>
+
+            </div>
+
+
+            <div class="contact" onclick="openChat('Sarah')">
+
+                <div class="contact-avatar">
+                    👤
+                </div>
+
+                <div class="contact-info">
+                    <b>Sarah</b>
+                    <small>Nice to meet you 👋</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div id="profilePage" class="page">
+
+        <div class="header">
+            Profile
+        </div>
+
+        <div class="profile-box">
+
+            <div class="avatar">
+                👤
+            </div>
+
+            <h2 id="profileName">
+                User
+            </h2>
+
+            <br>
+
+            <p id="profileEmail">
+                user@email.com
+            </p>
+
+            <button
+                class="main-btn logout"
+                onclick="logout()">
+                Log Out
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <div class="bottom">
+
+        <button onclick="showPage('homePage')">
+            🏠<br>Home
+        </button>
+
+        <button onclick="showPage('messagesPage')">
+            💬<br>Messages
+        </button>
+
+        <button onclick="showPage('profilePage')">
+            👤<br>Profile
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- CHAT SCREEN -->
+
+<div id="chatPage" class="chat-page">
+
+    <div class="chat-header">
+
+        <button class="back-btn" onclick="closeChat()">
+            ←
+        </button>
+
+        <div class="chat-user" id="chatUser">
+            Chat
+        </div>
+
+    </div>
+
+
+    <div
+        id="chatMessages"
+        class="chat-messages">
+    </div>
+
+
+    <div class="chat-input-area">
+
+        <input
+            type="text"
+            id="messageInput"
+            class="chat-input"
+            placeholder="Type a message..."
+            onkeydown="handleEnter(event)"
+        >
+
+        <button
+            class="send-btn"
+            onclick="sendMessage()">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* LOGIN / SIGNUP */
+
+function showLogin() {
+
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("signupScreen").style.display = "none";
+    document.getElementById("app").style.display = "none";
+    document.getElementById("chatPage").style.display = "none";
+
+}
+
+
+function showSignup() {
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("signupScreen").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+
+}
+
+
+function createAccount() {
+
+    const name =
+        document.getElementById("signupName").value.trim();
+
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    if (!name || !email || !password) {
+
+        alert("Please fill in all fields.");
+        return;
+
+    }
+
+    if (password.length < 6) {
+
+        alert("Password must contain at least 6 characters.");
+        return;
+
+    }
+
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", password);
+
+    openApp();
+
+}
+
+
+function login() {
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const savedEmail =
+        localStorage.getItem("userEmail");
+
+    const savedPassword =
+        localStorage.getItem("userPassword");
+
+    if (!email || !password) {
+
+        alert("Please enter your email and password.");
+        return;
+
+    }
+
+    if (email === savedEmail && password === savedPassword) {
+
+        openApp();
+
+    } else {
+
+        alert("Incorrect email or password.");
+
+    }
+
+}
+
+
+function openApp() {
+
+    const name =
+        localStorage.getItem("userName") || "User";
+
+    const email =
+        localStorage.getItem("userEmail") || "";
+
+    document.getElementById("welcomeText").innerText =
+        "Welcome, " + name + " 👋";
+
+    document.getElementById("profileName").innerText =
+        name;
+
+    document.getElementById("profileEmail").innerText =
+        email;
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("signupScreen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    document.getElementById("chatPage").style.display = "none";
+
+    showPage("homePage");
+
+}
+
+
+/* NAVIGATION */
+
+function showPage(pageId) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
+
+            page.classList.remove("active");
+
+        });
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+}
+
+
+/* OPEN CHAT */
+
+let currentChat = "";
+
+
+function openChat(name) {
+
+    currentChat = name;
+
+    document.getElementById("app").style.display = "none";
+
+    document.getElementById("chatPage").style.display = "flex";
+
+    document.getElementById("chatUser").innerText =
+        name;
+
+    loadMessages();
+
+    document.getElementById("messageInput").focus();
+
+}
+
+
+/* CLOSE CHAT */
+
+function closeChat() {
+
+    document.getElementById("chatPage").style.display = "none";
+
+    document.getElementById("app").style.display = "block";
+
+    showPage("messagesPage");
+
+}
+
+
+/* LOAD MESSAGES */
+
+function loadMessages() {
+
+    const box =
+        document.getElementById("chatMessages");
+
+    box.innerHTML = "";
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem("chat_" + currentChat) || "[]"
+        );
+
+    saved.forEach(function(message) {
+
+        addMessageToScreen(
+            message.text,
+            message.type
+        );
+
+    });
+
+    box.scrollTop = box.scrollHeight;
+
+}
+
+
+/* ADD MESSAGE TO SCREEN */
+
+function addMessageToScreen(text, type) {
+
+    const box =
+        document.getElementById("chatMessages");
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + type;
+
+    message.innerText =
+        text;
+
+    box.appendChild(message);
+
+    box.scrollTop =
+        box.scrollHeight;
+
+}
+
+
+/* SEND MESSAGE */
+
+function sendMessage() {
+
+    const input =
+        document.getElementById("messageInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text) {
+        return;
+    }
+
+    const key =
+        "chat_" + currentChat;
+
+    const messages =
+        JSON.parse(
+            localStorage.getItem(key) || "[]"
+        );
+
+    messages.push({
+        text: text,
+        type: "sent"
+    });
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(messages)
+    );
+
+    addMessageToScreen(
+        text,
+        "sent"
+    );
+
+    input.value = "";
+
+    /*
+       Demo reply.
+       Later we will replace this with
+       real online messaging.
+    */
+
+    setTimeout(function() {
+
+        const reply =
+            "Thanks for your message! 👋";
+
+        messages.push({
+            text: reply,
+            type: "received"
+        });
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(messages)
+        );
+
+        addMessageToScreen(
+            reply,
+            "received"
+        );
+
+    }, 800);
+
+}
+
+
+/* ENTER TO SEND */
+
+function handleEnter(event) {
+
+    if (event.key === "Enter") {
+
+        sendMessage();
+
+    }
+
+}
+
+
+/* OTHER BUTTONS */
+
+function likePost(button) {
+
+    if (button.innerText.includes("Liked")) {
+
+        button.innerText = "❤️ Like";
+
+    } else {
+
+        button.innerText = "❤️ Liked";
+
+    }
+
+}
+
+
+function commentPost() {
+
+    const comment =
+        prompt("Write your comment:");
+
+    if (comment && comment.trim()) {
+
+        alert("Comment added!");
+
+    }
+
+}
+
+
+function sharePost() {
+
+    alert("Post shared!");
+
+}
+
+
+function logout() {
+
+    document.getElementById("app").style.display = "none";
+
+    showLogin();
+
+}
+
+</script>
+
+</body>
+</html>  
