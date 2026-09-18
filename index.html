@@ -645,8 +645,7 @@ function showLogin() {
     document.getElementById("app").style.display = "none";
     document.getElementById("chatPage").style.display = "none";
 
- function login(){var e=document.getElementById("loginEmail"),p=document.getElementById("loginPassword");if(!e.value||!p.value){alert("Abeg fill email and password");return;}localStorage.setItem("isLoggedIn","true");localStorage.setItem("currentUser",e.value);document.getElementById("loginScreen").style.display="none";document.getElementById("signupScreen").style.display="none";document.getElementById("app").style.display="block";}   }
-
+ function login(){var e=document.getElementById("loginEmail");localStorage.setItem("isLoggedIn","true");localStorage.setItem("currentUser",e.value||"user");document.getElementById("loginScreen").style.display="none";document.getElementById("signupScreen").style.display="none";document.getElementById("app").style.display="block";}
 function showSignup() {
 
     document.getElementById("loginScreen").style.display = "none";
