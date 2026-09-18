@@ -1007,8 +1007,7 @@ function logout() {
 <div style="display:flex;padding:8px;border-top:1px solid #ddd"><input id="ai-input" placeholder="Ask anything..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none"><button onclick="sendAI()" style="margin-left:5px;background:#1877f2;color:white;border:none;border-radius:50%;width:40px;height:40px">➤</button></div>
 </div>
 
-<script>
-function sendAI(){
+<script>function sendAI(){
   let input = document.getElementById('ai-input');
   let chat = document.getElementById('ai-chat');
   let message = input.value.trim();
@@ -1018,14 +1017,22 @@ function sendAI(){
   let typingId = 'typing-'+Date.now();
   chat.innerHTML += '<div id="'+typingId+'" style="align-self:flex-start;background:#eee;padding:8px 12px;border-radius:15px;">Divine AI dey think... 🤖</div>';
   chat.scrollTop = chat.scrollHeight;
-  fetch('https://text.pollinations.ai/' + encodeURIComponent(message))
-  .then(r => r.text())
-  .then(aiReply => {
+  fetch('https://text.pollinations.ai/openai', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({model:'openai', messages:[
+      {role:'system', content:'You are Divine AI, created and owned by Divine Enyaeni for MySocialApp. You are NOT made by OpenAI. If asked who made you or who owns the app, say Divine Enyaeni is the owner and creator. You are a helpful Nigerian assistant.'},
+      {role:'user', content:message}
+    ]})
+  })
+ .then(r => r.json())
+ .then(data => {
     document.getElementById(typingId).remove();
-    chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px;white-space:pre-wrap">'+aiReply+'</div>';
+    let reply = data.choices[0].message.content;
+    chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px;white-space:pre-wrap">'+reply+'</div>';
     chat.scrollTop = chat.scrollHeight;
   })
-  .catch(() => {
+ .catch(() => {
     document.getElementById(typingId).remove();
     chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px">Network slow, try again boss 🙏</div>';
     chat.scrollTop = chat.scrollHeight;
