@@ -1,0 +1,13 @@
+{
+  "name": "MySocialApp by Divine Enyaeni",
+  "short_name": "MySocialApp",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1877f2",
+  "icons": [{
+    "src": "https://cdn-icons-png.flaticon.com/512/733/733547.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
