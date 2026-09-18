@@ -646,6 +646,21 @@ function showLogin() {
     document.getElementById("chatPage").style.display = "none";
 
 }
+    function login() {
+  const email = document.getElementById("loginEmail").value;
+  const pass = document.getElementById("loginPassword").value;
+  if (!email || !pass) {
+    alert("Abeg fill email and password");
+    return;
+  }
+  // Force enter - allow any account
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("signupScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  if(document.getElementById("chatPage")) document.getElementById("chatPage").style.display = "none";
+  localStorage.setItem("isLoggedIn","true");
+  localStorage.setItem("currentUser", email);
+}
 
 
 function showSignup() {
