@@ -1007,37 +1007,38 @@ function logout() {
   <div id="ai-chat" style="flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px"></div>
   <div style="display:flex;padding:8px;border-top:1px solid #ddd"><input id="ai-input" placeholder="Ask Divine AI..." style="flex:1;padding:8px;border:1px solid #ddd;border-radius:20px;outline:none"><button onclick="sendAI()" style="margin-left:6px;background:#1877f2;color:white;border:none;border-radius:20px;padding:8px 14px">Send</button></div>
 </div>
-<script>
 function sendAI(){
+  // We go use REAL AI now
   let input = document.getElementById('ai-input');
   let chat = document.getElementById('ai-chat');
   let message = input.value.trim();
   if(!message) return;
   
-  chat.innerHTML += '<div style="align-self:flex-end;background:#1877f2;color:white;padding:8px 12px;border-radius:15px;max-width:80%">'+message+'</div>';
+  chat.innerHTML += '<div style="align-self:flex-end;background:#1877f2;color:white;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px">'+message+'</div>';
   input.value = '';
   
-  setTimeout(function(){
-    let m = message.toLowerCase();
-    let timeNow = new Date().toLocaleTimeString();
-    let reply = "";
-    
-    if(m.includes("good morning")) reply = "Good morning Divine! ☀️ How you sleep? Hope say night sweet!";
-    else if(m.includes("good afternoon")) reply = "Good afternoon Divine! 🌤️ Afternoon don set o! How dey go?";
-    else if(m.includes("good evening")) reply = "Good evening Divine! 🌙 How your day go today?";
-    else if(m.includes("good night")) reply = "Good night Divine! 😴 Sleep well!";
-    else if(m.includes("hi") || m.includes("hello") || m.includes("hey")) reply = "Hi Divine! 👋 Na your Divine AI be this, ready to help!";
-    else if(m.includes("how are you")) reply = "I dey fine o! 😊 Thanks! How you dey?";
-    else if(m.includes("time")) reply = "Time now na "+timeNow+" ⏰";
-    else if(m.includes("who are you")) reply = "I be Divine AI 🤖 — assistant wey you build inside MySocialApp!";
-    else if(m.includes("thank")) reply = "You welcome boss 🙏";
-    else reply = "I hear you: '"+message+"' 🤔 Tell me more na!";
-    
-    chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%">'+reply+'</div>';
+  let typingId = 'typing-'+Date.now();
+  chat.innerHTML += '<div id="'+typingId+'" style="align-self:flex-start;background:#eee;padding:8px 12px;border-radius:15px;">Divine AI is thinking... 🤖</div>';
+  chat.scrollTop = chat.scrollHeight;
+
+  fetch('https://text.pollinations.ai/' + encodeURIComponent("You are Divine AI, a helpful assistant for Divine Enya. Answer in friendly style. User says: " + message))
+  .then(r => r.text())
+  .then(aiReply => {
+    document.getElementById(typingId).remove();
+    chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px;white-space:pre-wrap">'+aiReply+'</div>';
     chat.scrollTop = chat.scrollHeight;
-  }, 700);
+  })
+  .catch(() => {
+    document.getElementById(typingId).remove();
+    chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px">Network slow, but I got you! For "'+message+'" — I be your Divine AI assistant! Try again?</div>';
+    chat.scrollTop = chat.scrollHeight;
+  });
+  
 }
+
 </script>
 <!-- DIVINE AI SMART END -->
+</body>
+</html>
 </body>
     </html>
