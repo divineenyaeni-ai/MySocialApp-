@@ -895,32 +895,50 @@ function sendMessage() {
        real online messaging.
     */
 
-    setTimeout(function() {
+ setTimeout(function() {
+    // --- DIVINE AI v2 SMART ---
+    var m = message.toLowerCase();
+    var timeNow = new Date().toLocaleTimeString();
+    var dateNow = new Date().toLocaleDateString();
+    var reply = "";
 
-        const reply =
-            "Thanks for your message! 👋";
+    if (m.includes("good afternoon")) {
+        reply = "Good afternoon Divine! 🌤️ Afternoon don set. How you dey? What you wan do today?";
+    } else if (m.includes("good morning")) {
+        reply = "Good morning Divine! ☀️ How your night? Hope you sleep well!";
+    } else if (m.includes("good evening")) {
+        reply = "Good evening Divine! 🌙 How your day go?";
+    } else if (m.includes("hi") || m.includes("hello") || m.includes("hey")) {
+        reply = "Hi Divine! 👋 I be your Divine AI, ready to help!";
+    } else if (m.includes("how are you")) {
+        reply = "I dey fine o! 😊 Thanks for asking. You sef how you dey?";
+    } else if (m.includes("time")) {
+        reply = "Na " + timeNow + " be time now ⏰";
+    } else if (m.includes("date") || m.includes("day")) {
+        reply = "Today na " + dateNow + " 📅";
+    } else if (m.includes("who are you")) {
+        reply = "I be Divine AI 🤖 — your assistant inside MySocialApp wey you build!";
+    } else if (m.includes("thank")) {
+        reply = "You welcome boss 🙏";
+    } else {
+        reply = "I hear you: '" + message + "' 🤔 Nice one! Tell me more na.";
+       messages.push({
+        text: reply,
+        type: "received"
+    });
 
-        messages.push({
-            text: reply,
-            type: "received"
-        });
+    localStorage.setItem(key, JSON.stringify(messages));
+    addMessageToScreen(reply, "received");
+}, 800); }
 
-        localStorage.setItem(
-            key,
-            JSON.stringify(messages)
-        );
+    messages.push({
+        text: reply,
+        type: "received"
+    });
 
-        addMessageToScreen(
-            reply,
-            "received"
-        );
-
-    }, 800);
-
-}
-
-
-/* ENTER TO SEND */
+    localStorage.setItem(key, JSON.stringify(messages));
+    addMessageToScreen(reply, "received");
+}, 800); r ENTER TO SEND */
 
 function handleEnter(event) {
 
