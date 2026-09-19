@@ -1047,9 +1047,12 @@ function logout() {
 
 <div id="ai-box" style="position:fixed;bottom:90px;right:20px;width:90%;max-width:350px;height:450px;background:white;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.3);display:none;flex-direction:column;z-index:9999;overflow:hidden">
 <div style="background:#1877f2;color:white;padding:12px;display:flex;justify-content:space-between;align-items:center"><b>Divine AI 🤖</b><span onclick="document.getElementById('ai-box').style.display='none'" style="cursor:pointer">✕</span></div>
-<div id="ai-chat" style="flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:5px"></div>
-<div style="display:flex;padding:8px;border-top:1px solid #ddd"><input id="ai-input" placeholder="Ask anything..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;outline:none"><button onclick="sendAI()" style="margin-left:5px;background:#1877f2;color:white;border:none;border-radius:50%;width:40px;height:40px">➤</button></div>
+<div style="display:flex;padding:8px;border-top:1px solid #eee; gap:5px; align-items:center;">
+<label style="font-size:22px; cursor:pointer;">📎<input type="file" id="picInput" accept="image/*" hidden onchange="handlePic(this)"></label>
+<input id="ai-input" type="text" placeholder="Ask anything or upload picture..." style="flex:1; padding:10px; border-radius:20px; border:1px solid #ccc;">
+<button onclick="sendAI()" style="background:#1877f2; color:white; border:none; padding:10px 14px; border-radius:50%;">➤</button>
 </div>
+<div id="imgPreview" style="padding:5px; display:none;"><img id="previewImg" style="max-width:120px; border-radius:10px;"><button onclick="editPic()" style="margin-left:5px;">🎨 Edit like ChatGPT</button></div>
 
 <script>function sendAI(){
   let input = document.getElementById('ai-input');
@@ -1078,6 +1081,30 @@ function logout() {
   })
  .catch(() => {
     document.getElementById(typingId).remove();
+     let uploadedImageBase64 = null;
+function handlePic(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    uploadedImageBase64 = e.target.result;
+    document.getElementById('previewImg').src = uploadedImageBase64;
+    document.getElementById('imgPreview').style.display = 'block';
+    let chat = document.getElementById('ai-chat');
+    chat.innerHTML += '<div style="align-self:flex-end; background:#0084ff; color:white; padding:8px; border-radius:15px; margin:5px;"><img src="'+uploadedImageBase64+'" style="max-width:150px; border-radius:10px;"><br>Picture uploaded!</div>';
+    chat.scrollTop = chat.scrollHeight;
+  }
+  reader.readAsDataURL(file);
+}
+
+function editPic(){
+  let prompt = prompt("Wetin you wan change? e.g 'make am cartoon, make background beach, make am black and white'");
+  if(!prompt) return;
+  let chat = document.getElementById('ai-chat');
+  let editedUrl = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt + ' high quality') + '?nologo=true&seed=' + Date.now();
+  chat.innerHTML += '<div style="align-self:flex-start; background:#f0f0f0; padding:8px; border-radius:15px; margin:5px;"><img src="'+editedUrl+'" style="max-width:200px; border-radius:10px;"><br>Edited like ChatGPT! 🔥<br><a href="'+editedUrl+'" download target="_blank">⬇️ Download</a><br>By CEO Divine Enyaeni 👑</div>';
+  chat.scrollTop = chat.scrollHeight;
+    }
     chat.innerHTML += '<div style="align-self:flex-start;background:#f0f2f5;padding:8px 12px;border-radius:15px;max-width:80%;margin:4px">Network slow, try again boss 🙏</div>';
     chat.scrollTop = chat.scrollHeight;
   });
