@@ -908,27 +908,32 @@ function sendMessage() {
     var timeNow = new Date().toLocaleTimeString();
     var dateNow = new Date().toLocaleDateString();
     var reply = "";
+var m = message.toLowerCase();
 
-    if (m.includes("good afternoon")) {
-        reply = "Good afternoon Divine! 🌤️ Afternoon don set. How you dey? What you wan do today?";
-    } else if (m.includes("good morning")) {
-        reply = "Good morning Divine! ☀️ How your night? Hope you sleep well!";
-    } else if (m.includes("good evening")) {
-        reply = "Good evening Divine! 🌙 How your day go?";
-    } else if (m.includes("hi") || m.includes("hello") || m.includes("hey")) {
-        reply = "Hi Divine! 👋 I be your Divine AI, ready to help!";
-    } else if (m.includes("how are you")) {
-        reply = "I dey fine o! 😊 Thanks for asking. You sef how you dey?";
-    } else if (m.includes("time")) {
-        reply = "Na " + timeNow + " be time now ⏰";
-    } else if (m.includes("date") || m.includes("day")) {
-        reply = "Today na " + dateNow + " 📅";
-    } else if     } else if (m.includes("ceo") || m.includes("owner") || m.includes("boss") || m.includes("founder") || m.includes("who is in charge")) {
-        reply = "The CEO na Divine Enyaeni 👑 — na him be owner and founder of Divine Social!";
-    } else if (m.includes("who are you") || m.includes("who built you") || m.includes("who created you")) {
-        reply = "I be Divine AI 🤖 like ChatGPT — built for Divine Social! CEO na Divine Enyaeni 👑";
-       
-        reply = "You welcome boss 🙏";
+if (m.includes("good afternoon")) {
+    reply = "Good afternoon Divine! ☀️ How far? What you wan do today?";
+} else if (m.includes("good morning")) {
+    reply = "Good morning Divine! ☀️ Boss, how morning?";
+} else if (m.includes("good evening")) {
+    reply = "Good evening Divine! 🌙 Hope your day soft?";
+} else if (m.includes("ceo") || m.includes("owner") || m.includes("founder") || m.includes("who is in charge")) {
+    reply = "The CEO and Founder na Divine Enyaeni 👑 — na him build Divine Social and Divine AI!";
+} else if (m.includes("who are you") || m.includes("who built you")) {
+    reply = "I'm Divine AI 🤖 — I'm just like ChatGPT! I can write code, answer questions, write story, explain anything. Built for Divine Social by CEO Divine Enyaeni 👑";
+} else if (m.includes("what can you do") || m.includes("help")) {
+    reply = "I be like ChatGPT! 🔥 I fit: \n• Write code\n• Answer questions\n• Write story / essay\n• Explain anything\n• Chat like human\nJust ask me anything!";
+} else if (m.includes("code") || m.includes("html") || m.includes("javascript") || m.includes("python")) {
+    reply = "Yes I fit code like ChatGPT 💻\nTell me wetin you wan build, I go write the code for you sharp sharp!";
+} else if (m.includes("write") || m.includes("essay") || m.includes("story") || m.includes("letter")) {
+    reply = "No wahala! I be like ChatGPT — I fit write anything for you ✍️ Wetin you wan make I write?";
+} else if (m.includes("explain") || m.includes("what is") || m.includes("how to")) {
+    reply = "I go explain am for you like ChatGPT dey do 😊\nYou ask: '" + message + "'\n\nMake I break am down simple for you...";
+} else if (m.includes("thank")) {
+    reply = "You welcome boss 🙏 Anytime! CEO Divine Enyaeni dey always here for you 👑";
+} else {
+    // ChatGPT style default — e dey answer anything
+    reply = "Got you 👍 '" + message + "' — I understand! As your Divine AI like ChatGPT, I fit help you with that. Explain small more, I go run am for you! (CEO: Divine Enyaeni 👑)";
+    }
     } else {
         reply = "I hear you: '" + message + "' 🤔 Nice one! Tell me more na.";
        messages.push({
