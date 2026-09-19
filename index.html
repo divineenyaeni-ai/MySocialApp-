@@ -1007,8 +1007,7 @@ function startVideoCall(){
   if(!name) return;
   document.getElementById('videoCallBox').style.display='block';
   document.getElementById('callFrame').src = 'https://meet.jit.si/MySocialApp-'+name.replace(/\s/g,'')+'-'+Date  chat.scrollTop = chat.scrollHeight;
-  })
- .catch(() => {
+  }) .catch(() => {
     document.getElementById(typingId).remove();
   });
 }
@@ -1036,7 +1035,6 @@ function editPic(){
   let editedUrl = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt + ' high quality') + '?nologo=true&seed=' + Date.now();
   chat.innerHTML += '<div style="align-self:flex-start; background:#f0f0f0; padding:8px; border-radius:15px; margin:5px;"><img src="'+editedUrl+'" style="max-width:200px; border-radius:10px;"><br>Edited like ChatGPT! 🔥<br><a href="'+editedUrl+'" target="_blank">⬇️ Download</a><br>By CEO Divine Enyaeni 👑</div>';
   chat.scrollTop = chat.scrollHeight;
-    }.now();
     }
     document.getElementById(typingId).remove();
      let uploadedImageBase64 = null;
